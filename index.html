@@ -1,0 +1,1323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>5S Landscaping — Lawn Care &amp; Property Maintenance | Amity Gardens, PA</title>
+<meta name="description" content="Fast, affordable, reliable lawn care &amp; landscaping in Amity Gardens, Lehigh County, and Bucks County PA. Weekly mowing from $40. 100% recommended. Call (484) 940-1922."/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Josefin+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<style>
+:root {
+  --primary: #2D5A1B;
+  --secondary: #5C8A3C;
+  --accent: #8BC34A;
+  --bg: #F5F8F0;
+  --text: #1A2E10;
+  --dark: #1A2E10;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  overflow-x: hidden;
+  padding-top: 4.75rem; /* offset for fixed floating navbar (58px height + 1rem top gap) */
+}
+h1,h2,h3,h4,h5 { font-family: 'Cinzel', serif; letter-spacing: -0.01em; }
+
+/* NAV */
+#navbar {
+  position: fixed; top: 1rem; left: 1rem; right: 1rem;
+  z-index: 50;
+  border-radius: 9999px;
+  padding: 0.75rem 1.5rem;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(26,46,16,0.85);
+  backdrop-filter: blur(12px);
+  transition: background 300ms cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 300ms;
+}
+#navbar.scrolled {
+  background: var(--dark);
+  box-shadow: 0 4px 6px rgba(45,90,27,0.15), 0 12px 40px rgba(45,90,27,0.2);
+}
+.nav-logo { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; color: #fff; letter-spacing: -0.02em; }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links a { color: rgba(255,255,255,0.8); font-family: 'Josefin Sans', sans-serif; font-size: 0.875rem; font-weight: 500; text-decoration: none; transition: color 200ms; }
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.nav-cta {
+  background: var(--accent); color: var(--dark); border: none; cursor: pointer;
+  padding: 0.55rem 1.25rem; border-radius: 9999px;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.85rem; font-weight: 700;
+  text-decoration: none;
+  transition: transform 300ms cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 300ms;
+  box-shadow: 0 2px 8px rgba(139,195,74,0.3);
+}
+.nav-cta:hover { transform: scale(1.04); box-shadow: 0 4px 16px rgba(139,195,74,0.45); }
+.nav-cta:active { transform: scale(0.97); }
+.nav-cta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.5rem; }
+.hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: transform 300ms, opacity 200ms; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+#mobile-menu {
+  display: none; flex-direction: column; gap: 1.5rem;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--dark); z-index: 45;
+  align-items: center; justify-content: center;
+}
+#mobile-menu.open { display: flex; }
+#mobile-menu a {
+  color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 600;
+  text-decoration: none; letter-spacing: -0.02em; transition: color 200ms;
+}
+#mobile-menu a:hover { color: var(--accent); }
+#mobile-menu a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+#mobile-menu-close {
+  position: absolute; top: 1.5rem; right: 1.5rem;
+  background: none; border: none; cursor: pointer; color: #fff; font-size: 2rem; line-height: 1;
+}
+#mobile-menu-close:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+@media (max-width: 768px) {
+  .nav-links { display: none; }
+  .nav-cta-desktop { display: none; }
+  .hamburger { display: flex; }
+}
+
+/* URGENCY BAR */
+.urgency-bar {
+  background: var(--accent); color: var(--dark);
+  text-align: center; padding: 0.65rem 2rem;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.urgency-bar-inner { display: flex; align-items: center; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+.urgency-bar a { color: var(--dark); font-weight: 700; text-decoration: underline; cursor: pointer; }
+
+/* HERO */
+#hero {
+  height: 100dvh; position: relative; overflow: hidden;
+  display: flex; align-items: flex-end;
+}
+#hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('images/generated/hero-lawn.jpg');
+  background-size: cover; background-position: center;
+  will-change: transform;
+}
+#hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,46,16,0.96) 0%, rgba(26,46,16,0.55) 45%, rgba(26,46,16,0.15) 100%);
+}
+#hero-content {
+  position: relative; z-index: 10;
+  max-width: 80rem; margin: 0 auto; padding: 0 2rem 5rem;
+  width: 100%;
+}
+.hero-eyebrow {
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 0.875rem;
+}
+.hero-headline {
+  font-family: 'Cinzel', serif; font-weight: 700;
+  font-size: clamp(2.25rem, 5.5vw, 4rem);
+  color: #fff; letter-spacing: -0.01em;
+  line-height: 1.1; margin-bottom: 0.35rem;
+}
+.hero-drama {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: clamp(2.75rem, 8vw, 6.5rem);
+  color: var(--accent); line-height: 1.05;
+  margin-bottom: 1.5rem;
+}
+.hero-sub {
+  font-family: 'Josefin Sans', sans-serif; font-size: 1rem; line-height: 1.75;
+  color: rgba(255,255,255,0.78); max-width: 520px;
+  margin-bottom: 2rem;
+}
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+.btn-primary {
+  display: inline-block; background: var(--accent); color: var(--dark);
+  padding: 0.875rem 2rem; border-radius: 9999px;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+  text-decoration: none; border: none; cursor: pointer;
+  transition: transform 300ms cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 300ms;
+  box-shadow: 0 4px 6px rgba(139,195,74,0.2), 0 10px 30px rgba(139,195,74,0.18);
+  min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; justify-content: center;
+}
+.btn-primary:hover { transform: scale(1.03); box-shadow: 0 4px 12px rgba(139,195,74,0.3), 0 16px 40px rgba(139,195,74,0.22); }
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: #fff; border: 2px solid rgba(255,255,255,0.45);
+  padding: 0.875rem 2rem; border-radius: 9999px;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.9rem; font-weight: 600;
+  text-decoration: none; cursor: pointer; min-height: 44px;
+  transition: border-color 200ms, color 200ms, transform 300ms cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.btn-outline:hover { border-color: #fff; transform: translateY(-1px); }
+.btn-outline:active { transform: scale(0.97); }
+.btn-outline:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+/* CONTAINER */
+.container { max-width: 80rem; margin: 0 auto; padding: 0 2rem; }
+
+/* SECTION LABELS */
+.section-label {
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.75rem; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase; color: var(--secondary); margin-bottom: 0.6rem;
+}
+.section-headline {
+  font-family: 'Cinzel', serif; font-weight: 700;
+  font-size: clamp(1.875rem, 4vw, 2.875rem); letter-spacing: -0.01em;
+  color: var(--dark); margin-bottom: 0.875rem;
+}
+.section-sub {
+  font-family: 'Josefin Sans', sans-serif; font-size: 1rem;
+  color: rgba(26,46,16,0.68); max-width: 55ch; line-height: 1.7;
+  margin-bottom: 2.5rem;
+}
+
+/* SERVICES */
+#services { background: var(--bg); padding: 6rem 0; }
+.services-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start;
+}
+@media (max-width: 768px) { .services-grid { grid-template-columns: 1fr; } }
+
+.services-image-col { position: relative; border-radius: 2rem; overflow: hidden; }
+.services-image-col img { width: 100%; height: 480px; object-fit: cover; display: block; }
+.services-image-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(26,46,16,0.75) 0%, transparent 55%);
+}
+.services-image-badge {
+  position: absolute; bottom: 1.5rem; left: 1.5rem;
+  background: rgba(139,195,74,0.96); color: var(--dark);
+  padding: 0.45rem 1.2rem; border-radius: 9999px;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+}
+
+.service-card {
+  background: #fff; border-radius: 2rem; padding: 1.4rem 1.6rem;
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  box-shadow: 0 4px 6px rgba(45,90,27,0.05), 0 10px 30px rgba(45,90,27,0.07);
+  cursor: pointer; text-decoration: none;
+  transition: transform 300ms cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 300ms;
+  border: 1px solid rgba(45,90,27,0.08); min-height: 44px;
+}
+.service-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(45,90,27,0.09), 0 20px 40px rgba(45,90,27,0.12); }
+.service-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.service-name { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.95rem; color: var(--dark); margin-bottom: 0.2rem; }
+.service-note { font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; color: rgba(26,46,16,0.5); }
+.service-price { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem; color: var(--primary); white-space: nowrap; text-align: right; }
+.service-price.promo { color: #1A6B00; background: rgba(139,195,74,0.15); padding: 0.2rem 0.65rem; border-radius: 9999px; font-size: 0.875rem; }
+
+/* NICHE CARDS */
+.niche-cards-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3rem; }
+@media (max-width: 900px) { .niche-cards-row { grid-template-columns: 1fr; } }
+.niche-card {
+  background: #fff; border-radius: 2rem; padding: 1.75rem;
+  box-shadow: 0 4px 6px rgba(45,90,27,0.05), 0 10px 30px rgba(45,90,27,0.07);
+  border: 1px solid rgba(45,90,27,0.08); cursor: pointer;
+  transition: transform 300ms cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 300ms;
+  min-height: 220px; display: flex; flex-direction: column;
+}
+.niche-card:hover { transform: translateY(-3px); box-shadow: 0 8px 16px rgba(45,90,27,0.09), 0 24px 48px rgba(45,90,27,0.12); }
+.niche-card-title { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1rem; color: var(--dark); margin-bottom: 0.3rem; }
+.niche-card-desc { font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; color: rgba(26,46,16,0.58); margin-bottom: 1.25rem; line-height: 1.5; }
+.niche-card-interactive { flex: 1; display: flex; align-items: center; justify-content: center; }
+
+/* Before/After */
+.ba-slider { position: relative; width: 100%; height: 110px; border-radius: 1rem; overflow: hidden; cursor: ew-resize; user-select: none; }
+.ba-before { position: absolute; inset: 0; background: linear-gradient(135deg, #a8d5a2 0%, #5C8A3C 100%); display: flex; align-items: center; justify-content: center; }
+.ba-after { position: absolute; inset: 0; background: linear-gradient(135deg, #2D5A1B 0%, #1A2E10 100%); display: flex; align-items: center; justify-content: center; clip-path: inset(0 50% 0 0); }
+.ba-label { font-family: 'Josefin Sans', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #fff; }
+.ba-handle { position: absolute; top: 0; bottom: 0; width: 3px; background: #fff; left: 50%; transform: translateX(-50%); cursor: ew-resize; display: flex; align-items: center; justify-content: center; }
+.ba-handle-circle { width: 28px; height: 28px; background: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 8px rgba(0,0,0,0.25); }
+
+/* Phase timeline */
+.phase-track { display: flex; flex-direction: column; gap: 0.5rem; width: 100%; }
+.phase-step { display: flex; align-items: center; gap: 0.65rem; padding: 0.45rem 0.65rem; border-radius: 0.65rem; transition: background 300ms; }
+.phase-step.active { background: rgba(139,195,74,0.14); }
+.phase-dot { width: 9px; height: 9px; border-radius: 50%; background: rgba(45,90,27,0.18); flex-shrink: 0; transition: background 300ms, box-shadow 300ms; }
+.phase-step.active .phase-dot { background: var(--accent); box-shadow: 0 0 0 4px rgba(139,195,74,0.22); }
+.phase-step.done .phase-dot { background: var(--primary); }
+.phase-label { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--dark); }
+.phase-step.active .phase-label { color: var(--primary); }
+
+/* Crew counter */
+.crew-counter-wrap { text-align: center; width: 100%; }
+.crew-count-num { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 3rem; color: var(--primary); line-height: 1; }
+.crew-label { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(26,46,16,0.48); margin-top: 0.2rem; }
+.crew-pulsing { display: inline-flex; align-items: center; gap: 0.5rem; margin-top: 0.75rem; background: rgba(45,90,27,0.07); padding: 0.35rem 0.875rem; border-radius: 9999px; }
+.pulse-dot { width: 7px; height: 7px; border-radius: 50%; background: #22c55e; animation: pulse-anim 1.8s ease-in-out infinite; }
+@keyframes pulse-anim { 0%,100%{ box-shadow: 0 0 0 0 rgba(34,197,94,0.55); } 50%{ box-shadow: 0 0 0 8px rgba(34,197,94,0); } }
+.pulse-text { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; font-weight: 600; color: var(--primary); }
+
+/* PROMOS */
+#promos { background: var(--dark); padding: 6rem 0; }
+#promos .section-label { color: var(--accent); }
+#promos .section-headline { color: #fff; }
+#promos .section-sub { color: rgba(255,255,255,0.62); }
+.promos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; align-items: start; }
+@media (max-width: 768px) { .promos-grid { grid-template-columns: 1fr; } }
+
+.promo-image-col { border-radius: 2rem; overflow: hidden; position: relative; }
+.promo-image-col img { width: 100%; height: 400px; object-fit: cover; display: block; }
+.promo-image-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(26,46,16,0.82) 0%, transparent 55%); display: flex; align-items: flex-end; padding: 2rem; }
+.promo-expires-img { font-family: 'Space Grotesk', sans-serif; font-size: 0.8rem; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; }
+
+.promo-cards-col { display: flex; flex-direction: column; gap: 1.5rem; }
+.promo-card {
+  border: 2px solid rgba(139,195,74,0.22); border-radius: 2rem; padding: 2rem;
+  transition: border-color 300ms; cursor: pointer;
+}
+.promo-card:hover { border-color: rgba(139,195,74,0.55); }
+.promo-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.promo-code {
+  display: inline-block;
+  font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem;
+  color: var(--accent); letter-spacing: 0.1em;
+  background: rgba(139,195,74,0.08); padding: 0.35rem 0.875rem; border-radius: 0.5rem;
+  margin-bottom: 0.75rem; border: 1px dashed rgba(139,195,74,0.38);
+}
+.promo-offer { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 1rem; color: #fff; margin-bottom: 0.5rem; }
+.promo-detail { font-family: 'Josefin Sans', sans-serif; font-size: 0.85rem; color: rgba(255,255,255,0.52); line-height: 1.65; margin-bottom: 1.25rem; }
+.promo-expires-badge { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.45); }
+.promo-expires-badge span { color: var(--accent); }
+
+/* HOW IT WORKS */
+#how-it-works { background: var(--bg); padding: 6rem 0; }
+.hiw-header { text-align: center; margin-bottom: 4rem; }
+.hiw-header .section-sub { margin: 0.75rem auto 0; text-align: center; }
+.hiw-card {
+  background: #fff; border-radius: 2rem; padding: 3rem;
+  box-shadow: 0 4px 6px rgba(45,90,27,0.05), 0 10px 40px rgba(45,90,27,0.09);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center;
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) { .hiw-card { grid-template-columns: 1fr; padding: 2rem; gap: 2rem; } }
+.hiw-step-num { font-family: 'Josefin Sans', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem; }
+.hiw-step-title { font-family: 'Cinzel', serif; font-weight: 700; font-size: 1.625rem; color: var(--dark); letter-spacing: -0.01em; margin-bottom: 0.75rem; line-height: 1.2; }
+.hiw-step-desc { font-family: 'Josefin Sans', sans-serif; font-size: 0.95rem; color: rgba(26,46,16,0.68); line-height: 1.75; }
+.hiw-visual { display: flex; align-items: center; justify-content: center; min-height: 160px; }
+
+/* SOCIAL PROOF */
+#social-proof { background: var(--primary); padding: 6rem 0; }
+.sp-hero { text-align: center; margin-bottom: 4rem; }
+.sp-big-num {
+  font-family: 'DM Serif Display', serif; font-style: italic;
+  font-size: clamp(4rem, 10vw, 8rem); color: var(--accent); line-height: 1; margin-bottom: 0.5rem;
+}
+.sp-headline { font-family: 'Cinzel', serif; font-weight: 700; font-size: clamp(1.375rem, 3vw, 2.125rem); color: #fff; letter-spacing: -0.01em; margin-bottom: 1rem; }
+.sp-body { font-family: 'Josefin Sans', sans-serif; font-size: 1rem; color: rgba(255,255,255,0.68); max-width: 62ch; margin: 0 auto; line-height: 1.75; }
+
+.trust-signals-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; margin-top: 3rem; }
+@media (max-width: 640px) { .trust-signals-grid { grid-template-columns: 1fr; } }
+.trust-signal-card {
+  background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 2rem; padding: 1.5rem 1.875rem;
+  display: flex; align-items: flex-start; gap: 1rem; cursor: default;
+  transition: background 300ms;
+}
+.trust-signal-card:hover { background: rgba(255,255,255,0.1); }
+.trust-icon { width: 40px; height: 40px; background: rgba(139,195,74,0.14); border-radius: 1rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.trust-text { font-family: 'Josefin Sans', sans-serif; font-size: 0.875rem; color: rgba(255,255,255,0.8); line-height: 1.65; }
+.trust-text strong { color: #fff; font-weight: 700; display: block; margin-bottom: 0.1rem; font-family: 'Space Grotesk', sans-serif; font-size: 0.9rem; }
+
+.review-placeholders { display: grid; grid-template-columns: repeat(3,1fr); gap: 1rem; margin-top: 3rem; }
+@media (max-width: 900px) { .review-placeholders { grid-template-columns: 1fr; } }
+.review-placeholder { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: 2rem; padding: 1.75rem; }
+.review-stars { display: flex; gap: 0.25rem; margin-bottom: 0.75rem; }
+.review-quote { font-family: 'Josefin Sans', sans-serif; font-size: 0.875rem; color: rgba(255,255,255,0.62); line-height: 1.7; margin-bottom: 1rem; font-style: italic; }
+.review-author { font-family: 'Space Grotesk', sans-serif; font-weight: 600; font-size: 0.82rem; color: rgba(255,255,255,0.45); }
+
+/* CONTACT */
+#contact { background: var(--bg); padding: 6rem 0; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 4rem; align-items: start; }
+@media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+.contact-phone-link {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  color: var(--primary); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem;
+  text-decoration: none; margin-top: 1.5rem; margin-bottom: 0.5rem;
+  transition: color 200ms; min-height: 44px;
+}
+.contact-phone-link:hover { color: var(--secondary); }
+.contact-phone-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+.contact-trust-line { font-family: 'Josefin Sans', sans-serif; font-size: 0.8rem; color: rgba(26,46,16,0.5); line-height: 1.75; margin-top: 1.5rem; }
+
+.promo-reminder {
+  background: rgba(139,195,74,0.11); border: 1px solid rgba(139,195,74,0.28);
+  border-radius: 0.875rem; padding: 0.875rem 1.2rem; margin-bottom: 1.5rem;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.84rem; color: var(--primary);
+}
+.promo-reminder strong { font-weight: 700; }
+
+.lead-form-panel {
+  background: var(--dark); border-radius: 2rem; padding: 2.5rem;
+  box-shadow: 0 4px 6px rgba(45,90,27,0.1), 0 20px 60px rgba(45,90,27,0.14);
+}
+.form-row { margin-bottom: 1.125rem; }
+.form-label {
+  display: block; font-family: 'Josefin Sans', sans-serif; font-size: 0.75rem;
+  font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  color: rgba(255,255,255,0.58); margin-bottom: 0.45rem;
+}
+.form-input, .form-select, .form-textarea {
+  width: 100%; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.11);
+  border-radius: 0.875rem; padding: 0.7rem 0.95rem;
+  font-family: 'Josefin Sans', sans-serif; font-size: 0.95rem; color: #fff;
+  outline: none; transition: border-color 200ms, background 200ms;
+  min-height: 44px;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(255,255,255,0.27); }
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent); background: rgba(255,255,255,0.09); }
+.form-input:focus-visible, .form-select:focus-visible, .form-textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.form-select {
+  appearance: none; -webkit-appearance: none; cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238BC34A' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; background-position: right 0.95rem center; padding-right: 2.5rem;
+  background-color: rgba(255,255,255,0.06);
+}
+.form-select option { background: #1A2E10; color: #fff; }
+.form-textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+@media (max-width: 500px) { .form-grid-2 { grid-template-columns: 1fr; } }
+
+.btn-submit {
+  width: 100%; background: var(--accent); color: var(--dark); border: none; cursor: pointer;
+  padding: 1rem 2rem; border-radius: 9999px;
+  font-family: 'Space Grotesk', sans-serif; font-size: 1rem; font-weight: 700;
+  transition: transform 300ms cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 300ms;
+  box-shadow: 0 4px 6px rgba(139,195,74,0.18), 0 10px 30px rgba(139,195,74,0.14);
+  margin-top: 0.5rem; display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+  min-height: 52px;
+}
+.btn-submit:hover { transform: scale(1.02); box-shadow: 0 6px 14px rgba(139,195,74,0.28), 0 16px 40px rgba(139,195,74,0.18); }
+.btn-submit:active { transform: scale(0.98); }
+.btn-submit:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+.form-trust { font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.38); text-align: center; margin-top: 0.75rem; }
+
+/* FOOTER */
+footer { background: var(--dark); border-radius: 4rem 4rem 0 0; padding: 4rem 0 2.5rem; margin-top: 0; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+@media (max-width: 768px) { .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+.footer-brand-name { font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.2rem; color: #fff; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+.footer-tagline { font-family: 'Josefin Sans', sans-serif; font-size: 0.875rem; color: rgba(255,255,255,0.48); line-height: 1.7; max-width: 35ch; }
+.footer-col-title { font-family: 'Josefin Sans', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.38); margin-bottom: 1rem; }
+.footer-links { display: flex; flex-direction: column; gap: 0.55rem; }
+.footer-links a { font-family: 'Josefin Sans', sans-serif; font-size: 0.875rem; color: rgba(255,255,255,0.58); text-decoration: none; transition: color 200ms; min-height: 44px; display: inline-flex; align-items: center; }
+.footer-links a:hover { color: var(--accent); }
+.footer-links a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.07); padding-top: 1.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+.footer-legal { font-family: 'Josefin Sans', sans-serif; font-size: 0.78rem; color: rgba(255,255,255,0.28); }
+.system-operational { display: flex; align-items: center; gap: 0.5rem; }
+.system-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse-anim 2s ease-in-out infinite; }
+.system-label { font-family: 'Space Grotesk', sans-serif; font-size: 0.72rem; color: rgba(255,255,255,0.42); letter-spacing: 0.1em; }
+
+/* Reveal — content always visible, animation is cosmetic enhancement */
+.reveal { opacity: 1; transform: translateY(0); }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+.reveal.animate-in { animation: fadeUp 0.65s cubic-bezier(0.25,0.46,0.45,0.94) both; }
+
+/* Noise */
+#noise-overlay { position: fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:9999; opacity:0.045; }
+</style>
+</head>
+<body>
+
+<!-- Global Noise Overlay -->
+<svg id="noise-overlay" aria-hidden="true">
+  <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+  <rect width="100%" height="100%" filter="url(#noise)"/>
+</svg>
+
+<!-- MOBILE MENU -->
+<div id="mobile-menu" role="dialog" aria-label="Mobile navigation" aria-modal="true">
+  <button id="mobile-menu-close" aria-label="Close navigation menu">&times;</button>
+  <a href="#services" onclick="closeMobileMenu()">Services</a>
+  <a href="#promos" onclick="closeMobileMenu()">Promotions</a>
+  <a href="#how-it-works" onclick="closeMobileMenu()">How It Works</a>
+  <a href="#social-proof" onclick="closeMobileMenu()">Reviews</a>
+  <a href="#contact" onclick="closeMobileMenu()" style="color:var(--accent);">Get a Free Quote</a>
+</div>
+
+<!-- NAVBAR -->
+<nav id="navbar" role="navigation" aria-label="Main navigation">
+  <div class="nav-logo">5S Landscaping</div>
+  <div class="nav-links" role="list">
+    <a href="#services" role="listitem">Services</a>
+    <a href="#promos" role="listitem">Promotions</a>
+    <a href="#how-it-works" role="listitem">How It Works</a>
+    <a href="#social-proof" role="listitem">Reviews</a>
+  </div>
+  <a href="#contact" class="nav-cta nav-cta-desktop">Get a Free Quote</a>
+  <button class="hamburger" id="hamburger-btn" aria-label="Open navigation menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- URGENCY BAR -->
+<div class="urgency-bar" role="banner">
+  <div class="urgency-bar-inner">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    <span>SPRING2026 — $50 off spring cleanup · Expires May 7, 2026</span>
+    <a href="#contact">Claim Now &rarr;</a>
+  </div>
+</div>
+
+<!-- HERO -->
+<section id="hero" aria-label="Hero — 5S Landscaping">
+  <div id="hero-bg" role="img" aria-label="Lush green residential lawn maintained by 5S Landscaping"></div>
+  <div id="hero-overlay" aria-hidden="true"></div>
+  <div id="hero-content">
+    <p class="hero-eyebrow">Amity Gardens &middot; Lehigh County &middot; Bucks County, PA</p>
+    <h1 class="hero-headline">Your Lawn Done Right.</h1>
+    <p class="hero-drama">Every Time.</p>
+    <p class="hero-sub">5S Landscaping serves Amity Gardens, Lehigh County, and Bucks County PA with fast, affordable lawn care that makes your property stand out — starting at $40.</p>
+    <div class="hero-ctas">
+      <a href="#contact" class="btn-primary">Get a Free Quote</a>
+      <a href="tel:4849401922" class="btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.01z"/></svg>
+        Call (484) 940-1922
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES + PRICING -->
+<section id="services" aria-labelledby="services-headline">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3rem;">
+      <p class="section-label reveal">Our Services</p>
+      <h2 class="section-headline reveal" id="services-headline">Real Prices. No Runaround.</h2>
+      <p class="section-sub reveal" style="margin:0 auto;">Pick your service — we show up, we do the work, your property looks sharp.</p>
+    </div>
+
+    <div class="services-grid">
+      <div class="services-image-col reveal">
+        <img src="images/generated/services-mowing.jpg" alt="5S Landscaping crew mowing a residential lawn in Amity Gardens PA" loading="lazy" width="600" height="480"/>
+        <div class="services-image-overlay" aria-hidden="true"></div>
+        <div class="services-image-badge">From $40 / visit</div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:0.875rem;">
+        <a href="#contact" class="service-card reveal" aria-label="Weekly Lawn Mowing — from $40, size-dependent">
+          <div><div class="service-name">Weekly Lawn Mowing</div><div class="service-note">Consistent cuts, every week, no skips.</div></div>
+          <div class="service-price">From $40</div>
+        </a>
+        <a href="#contact" class="service-card reveal" aria-label="Bi-Weekly Lawn Mowing — from $50, size-dependent">
+          <div><div class="service-name">Bi-Weekly Lawn Mowing</div><div class="service-note">Every two weeks, same reliable crew.</div></div>
+          <div class="service-price">From $50</div>
+        </a>
+        <a href="#contact" class="service-card reveal" aria-label="Spring Cleanup — $50 off with code SPRING2026">
+          <div><div class="service-name">Spring Cleanup</div><div class="service-note">Clear the winter mess — use code SPRING2026</div></div>
+          <div class="service-price promo">$50 OFF</div>
+        </a>
+        <a href="#contact" class="service-card reveal" aria-label="All-Year Property Maintenance — custom quote">
+          <div><div class="service-name">All-Year Property Maintenance</div><div class="service-note">12 months. Snow, summer, fall — covered.</div></div>
+          <div class="service-price" style="font-size:0.82rem;white-space:nowrap;">Custom Quote</div>
+        </a>
+        <a href="#contact" class="service-card reveal" aria-label="Landscaping Design and Install — custom quote">
+          <div><div class="service-name">Landscaping Design &amp; Install</div><div class="service-note">Transform your yard from plain to polished.</div></div>
+          <div class="service-price" style="font-size:0.82rem;white-space:nowrap;">Custom Quote</div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Niche Interactive Cards -->
+    <div class="niche-cards-row">
+      <div class="niche-card reveal" tabindex="0">
+        <div class="niche-card-title">Before &amp; After Results</div>
+        <div class="niche-card-desc">Drag to see the transformation on a real property.</div>
+        <div class="niche-card-interactive">
+          <div class="ba-slider" id="ba-slider" role="img" aria-label="Before and after lawn transformation — drag to compare">
+            <div class="ba-before"><span class="ba-label">Before</span></div>
+            <div class="ba-after" id="ba-after"><span class="ba-label">After</span></div>
+            <div class="ba-handle" id="ba-handle" aria-hidden="true">
+              <div class="ba-handle-circle">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#2D5A1B" stroke-width="3" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="niche-card reveal" tabindex="0">
+        <div class="niche-card-title">Your Job, Step by Step</div>
+        <div class="niche-card-desc">From first contact to a finished lawn — your service roadmap.</div>
+        <div class="niche-card-interactive" style="align-items:flex-start;flex-direction:column;width:100%;">
+          <div class="phase-track" id="phase-track">
+            <div class="phase-step done"><div class="phase-dot"></div><span class="phase-label">Request Received</span></div>
+            <div class="phase-step active" id="ph-2"><div class="phase-dot"></div><span class="phase-label">Quote Sent</span></div>
+            <div class="phase-step" id="ph-3"><div class="phase-dot"></div><span class="phase-label">Crew Scheduled</span></div>
+            <div class="phase-step" id="ph-4"><div class="phase-dot"></div><span class="phase-label">Work Completed</span></div>
+            <div class="phase-step" id="ph-5"><div class="phase-dot"></div><span class="phase-label">Property Looking Sharp</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="niche-card reveal" tabindex="0">
+        <div class="niche-card-title">Crew Availability</div>
+        <div class="niche-card-desc">We're actively taking new clients in your area right now.</div>
+        <div class="niche-card-interactive" style="flex-direction:column;gap:0.5rem;">
+          <div class="crew-counter-wrap">
+            <div class="crew-count-num" id="crew-count">3</div>
+            <div class="crew-label">Spots Open This Week</div>
+            <div class="crew-pulsing">
+              <div class="pulse-dot"></div>
+              <span class="pulse-text">Accepting new clients</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem;" class="reveal">
+      <a href="#contact" class="btn-primary" style="background:var(--primary);color:#fff;box-shadow:0 4px 6px rgba(45,90,27,0.15),0 10px 30px rgba(45,90,27,0.18);">Get a Quote</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROMOTIONS -->
+<section id="promos" aria-labelledby="promos-headline">
+  <div class="container">
+    <p class="section-label reveal">Active Deals</p>
+    <h2 class="section-headline reveal" id="promos-headline">Spring Is Here. Don't Wait on This.</h2>
+    <p class="section-sub reveal">Two deals active right now — book before they're gone.</p>
+
+    <div class="promos-grid">
+      <div class="promo-image-col reveal">
+        <img src="images/generated/spring-cleanup.jpg" alt="Spring lawn cleanup showing freshly cleared yard ready for the season" loading="lazy" width="600" height="400"/>
+        <div class="promo-image-overlay">
+          <div class="promo-expires-img">Expires May 7, 2026</div>
+        </div>
+      </div>
+
+      <div class="promo-cards-col">
+        <div class="promo-card reveal" tabindex="0" aria-label="SPRING2026 — $50 off spring cleanup, expires May 7 2026">
+          <div class="promo-code">SPRING2026</div>
+          <div class="promo-offer">$50 off Spring Cleanup</div>
+          <div class="promo-detail">Winter's over and your property needs attention. Lock in $50 off your spring cleanup before May 7th — this deal won't last. Mention this code when you reach out. First come, first served.</div>
+          <div class="promo-expires-badge">Expires: <span>May 7, 2026</span></div>
+          <div style="margin-top:1.25rem;">
+            <a href="#contact" class="btn-primary" style="background:var(--accent);color:var(--dark);">Claim This Deal</a>
+          </div>
+        </div>
+
+        <div class="promo-card reveal" tabindex="0" aria-label="WM2026 — special rates on weekly and bi-weekly mowing, ongoing">
+          <div class="promo-code">WM2026</div>
+          <div class="promo-offer">Special Rates — Weekly &amp; Bi-Weekly Mowing</div>
+          <div class="promo-detail">New mowing customers get our 2026 special rates when they use code WM2026. Use it when reaching out to lock in your discount on regular service.</div>
+          <div class="promo-expires-badge">Status: <span>Ongoing — available now</span></div>
+          <div style="margin-top:1.25rem;">
+            <a href="#contact" class="btn-primary" style="background:var(--accent);color:var(--dark);">Claim This Deal</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works" aria-labelledby="hiw-headline">
+  <div class="container">
+    <div class="hiw-header">
+      <p class="section-label reveal">The Process</p>
+      <h2 class="section-headline reveal" id="hiw-headline">Three Steps to a Better Lawn</h2>
+      <p class="section-sub reveal">No contracts, no confusion — just fast service from a local crew you can trust.</p>
+    </div>
+
+    <div id="hiw-stack">
+      <div class="hiw-card reveal">
+        <div>
+          <div class="hiw-step-num">Step 01</div>
+          <h3 class="hiw-step-title">Request Your Free Quote</h3>
+          <p class="hiw-step-desc">Fill out the form or call (484) 940-1922. Shezan responds fast, usually same day. No pressure, no fluff — just honest pricing from a local pro.</p>
+        </div>
+        <div class="hiw-visual" aria-hidden="true">
+          <svg width="160" height="140" viewBox="0 0 160 140">
+            <circle cx="80" cy="70" r="55" fill="none" stroke="rgba(45,90,27,0.1)" stroke-width="1.5"/>
+            <circle cx="80" cy="70" r="40" fill="none" stroke="rgba(45,90,27,0.15)" stroke-width="1.5"/>
+            <circle cx="80" cy="70" r="25" fill="none" stroke="rgba(139,195,74,0.3)" stroke-width="2"/>
+            <circle cx="80" cy="70" r="8" fill="rgba(139,195,74,0.18)" stroke="rgba(139,195,74,0.55)" stroke-width="1.5"/>
+            <line id="hiw-hand" x1="80" y1="70" x2="80" y2="22" stroke="rgba(139,195,74,0.75)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="80" cy="70" r="3" fill="var(--accent)"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="hiw-card reveal">
+        <div>
+          <div class="hiw-step-num">Step 02</div>
+          <h3 class="hiw-step-title">We Show Up On Time</h3>
+          <p class="hiw-step-desc">Your crew arrives as scheduled, ready to work. No no-shows, no excuses. Direct contact with owner Shezan — you always know who's coming.</p>
+        </div>
+        <div class="hiw-visual" aria-hidden="true">
+          <svg width="160" height="120" viewBox="0 0 160 120" id="hiw-svg-2">
+            <g opacity="0.35">
+              <circle cx="28" cy="28" r="2.5" fill="var(--primary)"/><circle cx="52" cy="28" r="2.5" fill="var(--primary)"/><circle cx="76" cy="28" r="2.5" fill="var(--primary)"/><circle cx="100" cy="28" r="2.5" fill="var(--primary)"/><circle cx="124" cy="28" r="2.5" fill="var(--primary)"/>
+              <circle cx="28" cy="52" r="2.5" fill="var(--primary)"/><circle cx="52" cy="52" r="2.5" fill="var(--primary)"/><circle cx="76" cy="52" r="2.5" fill="var(--primary)"/><circle cx="100" cy="52" r="2.5" fill="var(--primary)"/><circle cx="124" cy="52" r="2.5" fill="var(--primary)"/>
+              <circle cx="28" cy="76" r="2.5" fill="var(--primary)"/><circle cx="52" cy="76" r="2.5" fill="var(--primary)"/><circle cx="76" cy="76" r="2.5" fill="var(--primary)"/><circle cx="100" cy="76" r="2.5" fill="var(--primary)"/><circle cx="124" cy="76" r="2.5" fill="var(--primary)"/>
+              <circle cx="28" cy="100" r="2.5" fill="var(--primary)"/><circle cx="52" cy="100" r="2.5" fill="var(--primary)"/><circle cx="76" cy="100" r="2.5" fill="var(--primary)"/><circle cx="100" cy="100" r="2.5" fill="var(--primary)"/><circle cx="124" cy="100" r="2.5" fill="var(--primary)"/>
+            </g>
+            <line id="laser-line" x1="20" y1="28" x2="140" y2="28" stroke="rgba(139,195,74,0.85)" stroke-width="2" stroke-linecap="round"/>
+            <defs><linearGradient id="lgrd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="rgba(139,195,74,0.5)"/><stop offset="100%" stop-color="rgba(139,195,74,0)"/></linearGradient></defs>
+            <rect id="laser-glow" x="20" y="23" width="120" height="9" fill="url(#lgrd)" opacity="0.4"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="hiw-card reveal">
+        <div>
+          <div class="hiw-step-num">Step 03</div>
+          <h3 class="hiw-step-title">Your Property Looks Great</h3>
+          <p class="hiw-step-desc">Clean cuts, cleared debris, and a lawn your neighbors will notice. Every time, without fail. That's the 5S standard.</p>
+        </div>
+        <div class="hiw-visual" aria-hidden="true">
+          <svg width="160" height="70" viewBox="0 0 160 70">
+            <polyline id="ekg-line" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+              points="0,35 20,35 30,35 40,8 50,62 60,35 80,35 88,35 98,8 108,62 118,35 160,35"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:3rem;" class="reveal">
+      <a href="#contact" class="btn-primary" style="background:var(--primary);color:#fff;box-shadow:0 4px 6px rgba(45,90,27,0.15),0 10px 30px rgba(45,90,27,0.18);">Start Today</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section id="social-proof" aria-labelledby="sp-headline">
+  <div class="container">
+    <div class="sp-hero reveal">
+      <div class="sp-big-num">100%</div>
+      <h2 class="sp-headline" id="sp-headline">of Customers Recommend 5S Landscaping</h2>
+      <p class="sp-body">Twelve homeowners across Amity Gardens, Lehigh County, and Bucks County have rated 5S Landscaping on Facebook — and every single one recommends them. That kind of track record comes from one thing: showing up and doing the work right, every time.</p>
+    </div>
+
+    <div class="trust-signals-grid">
+      <div class="trust-signal-card reveal">
+        <div class="trust-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="trust-text"><strong>100% Recommend Rate · 12 Reviews</strong>Facebook verified — every single customer recommends 5S Landscaping.</div>
+      </div>
+      <div class="trust-signal-card reveal">
+        <div class="trust-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        </div>
+        <div class="trust-text"><strong>Amity Gardens · Lehigh · Bucks County</strong>Local coverage across all surrounding PA counties.</div>
+      </div>
+      <div class="trust-signal-card reveal">
+        <div class="trust-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="trust-text"><strong>Direct Contact with Owner Shezan Anik</strong>No call centers. No runaround. You talk to the person doing your lawn.</div>
+      </div>
+      <div class="trust-signal-card reveal">
+        <div class="trust-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div class="trust-text"><strong>All-Year-Round Property Maintenance</strong>Snow, spring, summer, fall — one crew handles your property every season.</div>
+      </div>
+    </div>
+
+    <!-- CLIENT ACTION: Replace these placeholder cards with real testimonials from your Facebook reviews page -->
+    <div class="review-placeholders">
+      <div class="review-placeholder reveal">
+        <div class="review-stars" aria-label="5 stars">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-quote">"Placeholder — replace with a real Facebook review from a verified customer in Amity Gardens or Lehigh County."</p>
+        <div class="review-author">— Facebook Reviewer, Amity Gardens PA</div>
+      </div>
+      <div class="review-placeholder reveal">
+        <div class="review-stars" aria-label="5 stars">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-quote">"Placeholder — replace with a real Facebook review from a verified customer in Bucks County."</p>
+        <div class="review-author">— Facebook Reviewer, Bucks County PA</div>
+      </div>
+      <div class="review-placeholder reveal">
+        <div class="review-stars" aria-label="5 stars">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--accent)" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="review-quote">"Placeholder — replace with a real Facebook review from a verified customer in Lehigh County."</p>
+        <div class="review-author">— Facebook Reviewer, Lehigh County PA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT FORM -->
+<section id="contact" aria-labelledby="contact-headline">
+  <div class="container">
+    <div class="contact-grid">
+      <div>
+        <p class="section-label reveal">Free Quote</p>
+        <h2 class="section-headline reveal" id="contact-headline">Get Your Free Quote Today</h2>
+        <p class="section-sub reveal" style="margin-bottom:1rem;">Tell us about your property — Shezan will get back to you fast.</p>
+        <p style="font-family:'Josefin Sans',sans-serif;font-size:0.95rem;color:rgba(26,46,16,0.68);line-height:1.75;max-width:48ch;" class="reveal">Ready for a cleaner lawn and a crew you can count on? Drop your details below and we'll send you a straight quote. No pressure, no fluff — just honest pricing from a local pro.</p>
+        <a href="tel:4849401922" class="contact-phone-link reveal">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.37 2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.77a16 16 0 0 0 6.29 6.29l.95-.95a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.01z"/></svg>
+          (484) 940-1922
+        </a>
+        <p class="contact-trust-line reveal">
+          Serving Amity Gardens, Lehigh County &amp; Bucks County PA<br/>
+          Shezananik6@gmail.com &middot; 100% Recommended on Facebook
+        </p>
+      </div>
+
+      <!-- CLIENT ACTION: None — WhatsApp delivery is wired directly. Leads arrive as WhatsApp messages to (484) 940-1922. -->
+      <div class="lead-form-panel reveal">
+        <div class="promo-reminder">
+          <strong>Reminder:</strong> Use code <strong>SPRING2026</strong> for $50 off spring cleanup — expires May 7, 2026.
+        </div>
+        <form id="quote-form" novalidate>
+          <div class="form-grid-2">
+            <div class="form-row">
+              <label class="form-label" for="field-name">Your Name *</label>
+              <input class="form-input" id="field-name" name="name" type="text" required placeholder="John Smith" autocomplete="name"/>
+            </div>
+            <div class="form-row">
+              <label class="form-label" for="field-phone">Phone Number *</label>
+              <input class="form-input" id="field-phone" name="phone" type="tel" required placeholder="(484) 555-0100" autocomplete="tel"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="field-email">Email (optional)</label>
+            <input class="form-input" id="field-email" name="email" type="email" placeholder="john@email.com" autocomplete="email"/>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="field-service">Service Needed *</label>
+            <select class="form-select" id="field-service" name="service" required>
+              <option value="" disabled selected>Select a service</option>
+              <option value="Weekly Mowing">Weekly Mowing</option>
+              <option value="Bi-Weekly Mowing">Bi-Weekly Mowing</option>
+              <option value="Spring Cleanup">Spring Cleanup</option>
+              <option value="All-Year Maintenance">All-Year Maintenance</option>
+              <option value="Landscaping Design">Landscaping Design</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="field-address">Property Address / Area</label>
+            <input class="form-input" id="field-address" name="address" type="text" placeholder="Neighborhood or zip code" autocomplete="street-address"/>
+          </div>
+          <div class="form-row">
+            <label class="form-label" for="field-message">Message / Details</label>
+            <textarea class="form-textarea" id="field-message" name="message" placeholder="Anything else we should know?"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+            Send My Request
+          </button>
+          <p class="form-trust">No spam. Shezan will respond within a few hours.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer aria-label="Site footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand-name">5S Landscaping</div>
+        <p class="footer-tagline">Fast, affordable, reliable lawn care &amp; property maintenance serving Amity Gardens, Lehigh County, and Bucks County, PA. Always local. Always reliable.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Services</div>
+        <nav class="footer-links" aria-label="Footer services navigation">
+          <a href="#services">Weekly Mowing</a>
+          <a href="#services">Bi-Weekly Mowing</a>
+          <a href="#services">Spring Cleanup</a>
+          <a href="#services">All-Year Maintenance</a>
+          <a href="#services">Landscaping Design</a>
+        </nav>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <nav class="footer-links" aria-label="Footer contact navigation">
+          <a href="tel:4849401922">(484) 940-1922</a>
+          <a href="mailto:Shezananik6@gmail.com">Shezananik6@gmail.com</a>
+          <a href="#contact">Free Quote</a>
+          <a href="#promos">Current Promos</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-legal">&copy; 2026 5S Landscaping — Amity Gardens, PA. All rights reserved.</p>
+      <div class="system-operational">
+        <div class="system-dot" aria-hidden="true"></div>
+        <span class="system-label">System Operational</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── Reduced motion guard ────────────────────────────────────────────────────
+const PRM = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+// ── Mobile menu ─────────────────────────────────────────────────────────────
+const hamburgerBtn = document.getElementById('hamburger-btn');
+const mobileMenu   = document.getElementById('mobile-menu');
+const menuClose    = document.getElementById('mobile-menu-close');
+
+hamburgerBtn.addEventListener('click', () => {
+  const open = mobileMenu.classList.toggle('open');
+  hamburgerBtn.classList.toggle('open', open);
+  hamburgerBtn.setAttribute('aria-expanded', open);
+});
+menuClose.addEventListener('click', closeMobileMenu);
+function closeMobileMenu() {
+  mobileMenu.classList.remove('open');
+  hamburgerBtn.classList.remove('open');
+  hamburgerBtn.setAttribute('aria-expanded', 'false');
+}
+
+// ── Navbar scroll morph ─────────────────────────────────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ── GSAP animations ─────────────────────────────────────────────────────────
+if (!PRM) {
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Hero stagger — animate from invisible
+  gsap.set(['.hero-eyebrow','.hero-headline','.hero-drama','.hero-sub','.hero-ctas'], { opacity:0, y:24 });
+  gsap.timeline({ delay: 0.15 })
+    .to('.hero-eyebrow',  { opacity:1, y:0, duration:0.65, ease:'power3.out' }, 0)
+    .to('.hero-headline', { opacity:1, y:0, duration:0.65, ease:'power3.out' }, 0.1)
+    .to('.hero-drama',    { opacity:1, y:0, duration:0.65, ease:'power3.out' }, 0.2)
+    .to('.hero-sub',      { opacity:1, y:0, duration:0.65, ease:'power3.out' }, 0.33)
+    .to('.hero-ctas',     { opacity:1, y:0, duration:0.65, ease:'power3.out' }, 0.43);
+
+  // Scroll reveals — animate-in class added when element enters viewport
+  const revealObs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('animate-in');
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.05, rootMargin: '0px 0px -5% 0px' });
+  document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+  // Rotating clock hand
+  gsap.to('#hiw-hand', {
+    rotation: 360, transformOrigin: '80px 70px',
+    duration: 6, repeat: -1, ease: 'none'
+  });
+
+  // Laser line scan
+  gsap.to('#laser-line', { attr:{y1:100, y2:100}, duration:2, repeat:-1, ease:'power1.inOut', yoyo:true });
+  gsap.to('#laser-glow', { attr:{y:95},            duration:2, repeat:-1, ease:'power1.inOut', yoyo:true });
+
+  // EKG animation
+  const ekg = document.getElementById('ekg-line');
+  if (ekg && ekg.getTotalLength) {
+    const len = ekg.getTotalLength();
+    ekg.style.strokeDasharray = len;
+    ekg.style.strokeDashoffset = len;
+    gsap.to(ekg, { strokeDashoffset: 0, duration: 2.2, repeat:-1, ease:'power1.inOut', yoyo:true });
+  }
+
+} else {
+  // Reduced motion: everything already visible (no class hiding applied)
+}
+
+// ── Before/After slider ─────────────────────────────────────────────────────
+(function() {
+  const slider = document.getElementById('ba-slider');
+  const after  = document.getElementById('ba-after');
+  const handle = document.getElementById('ba-handle');
+  if (!slider) return;
+  let dragging = false;
+  function setPos(clientX) {
+    const r = slider.getBoundingClientRect();
+    const pct = Math.min(100, Math.max(0, (clientX - r.left) / r.width * 100));
+    after.style.clipPath = `inset(0 ${100 - pct}% 0 0)`;
+    handle.style.left = pct + '%';
+  }
+  slider.addEventListener('mousedown', e => { dragging=true; setPos(e.clientX); });
+  window.addEventListener('mousemove', e => { if (dragging) setPos(e.clientX); });
+  window.addEventListener('mouseup',   () => { dragging=false; });
+  slider.addEventListener('touchstart', e => { dragging=true; setPos(e.touches[0].clientX); }, { passive:true });
+  window.addEventListener('touchmove',  e => { if(dragging) setPos(e.touches[0].clientX); }, { passive:true });
+  window.addEventListener('touchend',   () => { dragging=false; });
+})();
+
+// ── Phase timeline ──────────────────────────────────────────────────────────
+(function() {
+  const ids = ['ph-2','ph-3','ph-4','ph-5'];
+  let cur = 0;
+  setInterval(() => {
+    const prev = document.getElementById(ids[cur]);
+    if (prev) { prev.classList.remove('active'); prev.classList.add('done'); }
+    cur = (cur + 1) % ids.length;
+    const next = document.getElementById(ids[cur]);
+    if (next) next.classList.add('active');
+  }, 1800);
+})();
+
+// ── WhatsApp lead form ──────────────────────────────────────────────────────
+document.getElementById('quote-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const name    = document.getElementById('field-name').value.trim();
+  const phone   = document.getElementById('field-phone').value.trim();
+  const email   = document.getElementById('field-email').value.trim();
+  const service = document.getElementById('field-service').value;
+  const address = document.getElementById('field-address').value.trim();
+  const msg     = document.getElementById('field-message').value.trim();
+
+  if (!name || !phone || !service) {
+    alert('Please fill in your name, phone number, and service needed.');
+    return;
+  }
+
+  const text = [
+    'New Quote Request from 5S Landscaping Website',
+    '',
+    'Name: ' + name,
+    'Phone: ' + phone,
+    'Email: ' + (email || 'Not provided'),
+    'Service: ' + service,
+    'Area: ' + (address || 'Not provided'),
+    'Message: ' + (msg || 'None')
+  ].join('\n');
+
+  window.open('https://wa.me/4849401922?text=' + encodeURIComponent(text), '_blank', 'noopener,noreferrer');
+});
+</script>
+
+<!-- Chatbot Widget — inlined verbatim from pipeline/chatbot_widget.js -->
+<script>
+(function () {
+  'use strict';
+
+  var PRIMARY   = '#2D5A1B';
+  var BG_COLOR  = '#F5F8F0';
+  var TEXT_COLOR = '#1A2E10';
+  var BODY_FONT  = "'Josefin Sans', sans-serif";
+  var CLIENT_NAME = '5S Landscaping';
+  var WA_NUMBER  = '4849401922';
+  var GREETING   = "Hi! I'm the 5S Landscaping assistant. Ask me about services, pricing, or get a free quote!";
+  var WA_BUTTON_LABEL = 'Chat with Shezan on WhatsApp';
+  var WA_LINK = 'https://wa.me/' + WA_NUMBER + '?text=Hi%2C%20I%20have%20a%20question';
+  var MODEL = 'claude-3-5-haiku-20241022';
+
+  var SYSTEM_PROMPT = [
+    'You are a friendly, knowledgeable assistant for 5S Landscaping, a local lawn care and',
+    'property maintenance business in Amity Gardens, PA serving Lehigh County, Bucks County,',
+    'and surrounding areas. Owner: Shezan Anik. Phone: (484) 940-1922.',
+    '',
+    'Services offered:',
+    '- Weekly lawn mowing starting at $40 (size-dependent)',
+    '- Bi-weekly lawn mowing starting at $50 (size-dependent)',
+    '- Spring cleanup — $50 off through May 7 with promo code SPRING2026',
+    '- All-year-round property maintenance (custom quote)',
+    '- Landscaping design & installation (custom quote)',
+    '',
+    'Active promotions:',
+    '- WM2026: special rates on weekly & bi-weekly mowing',
+    '- SPRING2026: $50 off spring cleanup (expires May 7, 2026)',
+    '',
+    'Trust signals:',
+    '- 100% recommendation rate based on 12 Facebook reviews',
+    '- Always local, always reliable',
+    '- Direct contact with owner Shezan Anik',
+    '',
+    'Tone: Bold, direct, confident — like a hardworking local pro who takes pride in every lawn.',
+    'Keep responses concise (2-4 sentences max). Never invent prices or services not listed above.',
+    'If a visitor asks for a quote or wants to book, encourage them to use the contact form',
+    'on the page or chat on WhatsApp at (484) 940-1922.',
+    'Do not discuss competitors. Do not make promises about exact pricing — always say "starting at"',
+    'or "contact us for a custom quote" where appropriate.'
+  ].join('\n');
+
+  var isOpen = false;
+  var conversationHistory = [];
+  var fallbackCount = 0;
+  var waShown = false;
+  var greetingShown = false;
+  var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var launcher, panel, messagesArea, inputEl, sendBtn, closeBtn;
+
+  function chatIcon() {
+    return '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>';
+  }
+  function sendIcon() {
+    return '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>';
+  }
+  function waIcon() {
+    return '<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>';
+  }
+
+  function injectStyles() {
+    var css = [
+      '#_5s-launcher{position:fixed;bottom:1.5rem;right:1.5rem;width:60px;height:60px;border-radius:50%;background:' + PRIMARY + ';border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:9998;box-shadow:0 8px 24px rgba(45,90,27,0.45),0 2px 8px rgba(0,0,0,0.2);transition:transform 200ms cubic-bezier(0.34,1.56,0.64,1);}',
+      '#_5s-launcher:hover{transform:scale(1.08);}',
+      '#_5s-launcher:active{transform:scale(0.96);}',
+      '#_5s-launcher:focus-visible{outline:2px solid ' + PRIMARY + ';outline-offset:3px;}',
+      '#_5s-panel{position:fixed;bottom:5.5rem;right:1.5rem;width:min(360px,calc(100vw - 2rem));max-height:min(520px,calc(100dvh - 6rem));background:' + BG_COLOR + ';border:1px solid rgba(45,90,27,0.18);border-radius:1rem;box-shadow:0 24px 48px rgba(0,0,0,0.18),0 8px 16px rgba(0,0,0,0.1);z-index:9999;display:none;flex-direction:column;overflow:hidden;transform:translateY(20px) scale(0.97);opacity:0;transition:transform 280ms cubic-bezier(0.34,1.56,0.64,1),opacity 280ms ease;}',
+      '#_5s-panel[data-open="true"]{display:flex;}',
+      '#_5s-panel[data-visible="true"]{transform:translateY(0) scale(1);opacity:1;}',
+      '@media(max-width:639px){#_5s-panel{bottom:0;left:0;right:0;width:100%;max-width:100%;border-radius:1.5rem 1.5rem 0 0;max-height:min(520px,calc(100dvh - 4rem));}}',
+      '#_5s-header{background:' + PRIMARY + ';padding:0.875rem 1rem;display:flex;align-items:center;gap:0.75rem;flex-shrink:0;}',
+      '#_5s-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-family:' + BODY_FONT + ';font-weight:700;font-size:1rem;color:#fff;flex-shrink:0;}',
+      '#_5s-header-name{color:#fff;font-family:' + BODY_FONT + ';font-weight:600;font-size:0.9rem;flex:1;}',
+      '#_5s-close{background:none;border:none;cursor:pointer;color:rgba(255,255,255,0.8);font-size:1.4rem;line-height:1;padding:0.25rem;display:flex;align-items:center;justify-content:center;border-radius:0.25rem;transition:color 150ms ease;}',
+      '#_5s-close:hover{color:#fff;}',
+      '#_5s-close:focus-visible{outline:2px solid #fff;outline-offset:2px;}',
+      '#_5s-messages{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:0.75rem;padding:1rem;scroll-behavior:smooth;}',
+      '._5s-msg{max-width:82%;word-break:break-word;font-family:' + BODY_FONT + ';font-size:0.875rem;line-height:1.5;padding:0.625rem 0.875rem;border-radius:1rem;}',
+      '._5s-msg-bot{align-self:flex-start;background:rgba(45,90,27,0.1);color:' + TEXT_COLOR + ';border-bottom-left-radius:0.25rem;}',
+      '._5s-msg-user{align-self:flex-end;background:' + PRIMARY + ';color:#fff;border-bottom-right-radius:0.25rem;}',
+      '._5s-typing{align-self:flex-start;background:rgba(45,90,27,0.1);color:' + TEXT_COLOR + ';padding:0.625rem 0.875rem;border-radius:1rem;border-bottom-left-radius:0.25rem;font-family:' + BODY_FONT + ';font-size:0.875rem;letter-spacing:0.1em;}',
+      '._5s-wa-btn{display:inline-flex;align-items:center;gap:0.5rem;background:#25D366;color:#fff;font-family:' + BODY_FONT + ';font-size:0.8rem;font-weight:600;padding:0.5rem 0.875rem;border-radius:2rem;text-decoration:none;margin-top:0.25rem;align-self:flex-start;transition:opacity 150ms ease,transform 150ms ease;}',
+      '._5s-wa-btn:hover{opacity:0.9;transform:translateY(-1px);}',
+      '._5s-wa-btn:focus-visible{outline:2px solid #25D366;outline-offset:2px;}',
+      '#_5s-input-area{display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1rem;border-top:1px solid rgba(45,90,27,0.12);flex-shrink:0;background:' + BG_COLOR + ';}',
+      '#_5s-input{flex:1;border:1px solid rgba(45,90,27,0.25);border-radius:2rem;padding:0.5rem 0.875rem;font-family:' + BODY_FONT + ';font-size:0.875rem;color:' + TEXT_COLOR + ';background:#fff;outline:none;transition:border-color 150ms ease;}',
+      '#_5s-input:focus{border-color:' + PRIMARY + ';}',
+      '#_5s-input:focus-visible{outline:2px solid ' + PRIMARY + ';outline-offset:2px;}',
+      '#_5s-send{width:38px;height:38px;border-radius:50%;background:' + PRIMARY + ';border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:transform 150ms ease,opacity 150ms ease;}',
+      '#_5s-send:hover{opacity:0.88;transform:scale(1.05);}',
+      '#_5s-send:active{transform:scale(0.94);}',
+      '#_5s-send:focus-visible{outline:2px solid ' + PRIMARY + ';outline-offset:2px;}',
+      '#_5s-send:disabled{opacity:0.45;cursor:not-allowed;}',
+      prefersReducedMotion ? '#_5s-panel,#_5s-launcher,._5s-wa-btn,#_5s-send,#_5s-close{transition:none!important;}' : ''
+    ].join('');
+    var s = document.createElement('style');
+    s.textContent = css;
+    document.head.appendChild(s);
+  }
+
+  function buildDOM() {
+    launcher = document.createElement('button');
+    launcher.id = '_5s-launcher';
+    launcher.setAttribute('aria-label', 'Open chat');
+    launcher.innerHTML = chatIcon();
+    document.body.appendChild(launcher);
+
+    panel = document.createElement('div');
+    panel.id = '_5s-panel';
+    panel.setAttribute('role', 'dialog');
+    panel.setAttribute('aria-label', 'Chat with us');
+    panel.setAttribute('aria-modal', 'true');
+
+    var header = document.createElement('div');
+    header.id = '_5s-header';
+
+    var avatar = document.createElement('div');
+    avatar.id = '_5s-avatar';
+    avatar.textContent = '5S';
+
+    var headerName = document.createElement('div');
+    headerName.id = '_5s-header-name';
+    headerName.textContent = CLIENT_NAME;
+
+    closeBtn = document.createElement('button');
+    closeBtn.id = '_5s-close';
+    closeBtn.setAttribute('aria-label', 'Close chat');
+    closeBtn.innerHTML = '&times;';
+
+    header.appendChild(avatar);
+    header.appendChild(headerName);
+    header.appendChild(closeBtn);
+
+    messagesArea = document.createElement('div');
+    messagesArea.id = '_5s-messages';
+    messagesArea.setAttribute('aria-live', 'polite');
+    messagesArea.setAttribute('aria-relevant', 'additions');
+
+    var inputArea = document.createElement('div');
+    inputArea.id = '_5s-input-area';
+
+    inputEl = document.createElement('input');
+    inputEl.id = '_5s-input';
+    inputEl.type = 'text';
+    inputEl.placeholder = 'Type a message...';
+    inputEl.setAttribute('aria-label', 'Chat message input');
+    inputEl.setAttribute('autocomplete', 'off');
+
+    sendBtn = document.createElement('button');
+    sendBtn.id = '_5s-send';
+    sendBtn.setAttribute('aria-label', 'Send message');
+    sendBtn.innerHTML = sendIcon();
+
+    inputArea.appendChild(inputEl);
+    inputArea.appendChild(sendBtn);
+    panel.appendChild(header);
+    panel.appendChild(messagesArea);
+    panel.appendChild(inputArea);
+    document.body.appendChild(panel);
+  }
+
+  function appendMessage(text, role) {
+    var el = document.createElement('div');
+    el.className = '_5s-msg ' + (role === 'user' ? '_5s-msg-user' : '_5s-msg-bot');
+    el.textContent = text;
+    messagesArea.appendChild(el);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+    return el;
+  }
+
+  function appendTyping() {
+    var el = document.createElement('div');
+    el.className = '_5s-typing';
+    el.textContent = '···';
+    messagesArea.appendChild(el);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+    return el;
+  }
+
+  function appendWhatsApp() {
+    if (waShown || !WA_NUMBER) return;
+    waShown = true;
+    var a = document.createElement('a');
+    a.className = '_5s-wa-btn';
+    a.href = WA_LINK;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    a.innerHTML = waIcon() + ' ' + WA_BUTTON_LABEL;
+    messagesArea.appendChild(a);
+    messagesArea.scrollTop = messagesArea.scrollHeight;
+  }
+
+  function getApiKey() {
+    if (typeof window !== 'undefined' && window.__VITE_ANTHROPIC_API_KEY__) return window.__VITE_ANTHROPIC_API_KEY__;
+    try { return import.meta && import.meta.env && import.meta.env.VITE_ANTHROPIC_API_KEY ? import.meta.env.VITE_ANTHROPIC_API_KEY : null; } catch(e) { return null; }
+  }
+
+  function sendToAI(userText, onSuccess, onError) {
+    var apiKey = getApiKey();
+    if (!apiKey) { onError('No API key'); return; }
+    conversationHistory.push({ role: 'user', content: userText });
+    fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey, 'anthropic-version': '2023-06-01', 'anthropic-dangerous-direct-browser-access': 'true' },
+      body: JSON.stringify({ model: MODEL, max_tokens: 300, system: SYSTEM_PROMPT, messages: conversationHistory })
+    }).then(function(res) {
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return res.json();
+    }).then(function(data) {
+      var reply = data.content && data.content[0] && data.content[0].text ? data.content[0].text : null;
+      if (!reply) throw new Error('Empty response');
+      conversationHistory.push({ role: 'assistant', content: reply });
+      onSuccess(reply);
+    }).catch(function(err) { onError(err); });
+  }
+
+  function handleSend() {
+    var text = inputEl.value.trim();
+    if (!text) return;
+    inputEl.value = '';
+    sendBtn.disabled = true;
+    appendMessage(text, 'user');
+    var typing = appendTyping();
+    sendToAI(text, function(reply) {
+      typing.remove();
+      appendMessage(reply, 'bot');
+      sendBtn.disabled = false;
+      inputEl.focus();
+    }, function() {
+      typing.remove();
+      appendMessage("I'm not sure about that, but I'd love to connect you with our team!", 'bot');
+      fallbackCount++;
+      if (fallbackCount >= 2) appendWhatsApp();
+      sendBtn.disabled = false;
+      inputEl.focus();
+    });
+  }
+
+  function getFocusableEls() {
+    return Array.prototype.slice.call(panel.querySelectorAll('button,input,a[href],[tabindex]:not([tabindex="-1"])')).filter(function(el) { return !el.disabled; });
+  }
+
+  function trapFocus(e) {
+    if (!isOpen) return;
+    var focusable = getFocusableEls();
+    if (!focusable.length) return;
+    var first = focusable[0], last = focusable[focusable.length - 1];
+    if (e.key === 'Tab') {
+      if (e.shiftKey) { if (document.activeElement === first) { e.preventDefault(); last.focus(); } }
+      else { if (document.activeElement === last) { e.preventDefault(); first.focus(); } }
+    }
+    if (e.key === 'Escape') closePanel();
+  }
+
+  function openPanel() {
+    isOpen = true;
+    panel.setAttribute('data-open', 'true');
+    panel.style.display = 'flex';
+    requestAnimationFrame(function() { requestAnimationFrame(function() { panel.setAttribute('data-visible', 'true'); }); });
+    launcher.setAttribute('aria-expanded', 'true');
+    document.addEventListener('keydown', trapFocus);
+    if (!greetingShown) {
+      greetingShown = true;
+      setTimeout(function() { appendMessage(GREETING, 'bot'); inputEl.focus(); }, 400);
+    } else { setTimeout(function() { inputEl.focus(); }, 50); }
+  }
+
+  function closePanel() {
+    isOpen = false;
+    panel.removeAttribute('data-visible');
+    var duration = prefersReducedMotion ? 0 : 200;
+    setTimeout(function() { panel.style.display = 'none'; panel.removeAttribute('data-open'); }, duration);
+    launcher.setAttribute('aria-expanded', 'false');
+    launcher.focus();
+    document.removeEventListener('keydown', trapFocus);
+  }
+
+  function wireEvents() {
+    launcher.addEventListener('click', function() { if (isOpen) closePanel(); else openPanel(); });
+    closeBtn.addEventListener('click', closePanel);
+    sendBtn.addEventListener('click', handleSend);
+    inputEl.addEventListener('keydown', function(e) { if (e.key === 'Enter') handleSend(); });
+  }
+
+  function init() { injectStyles(); buildDOM(); wireEvents(); }
+
+  if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+</script>
+
+</body>
+</html>
